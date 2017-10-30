@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+{% load static %}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录</title>
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<style type="text/css">
+			.mui-content {
+				margin-top: 20px;
+			}
+			.mui-input-row label {
+				width: 22%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			.link-area {
+				margin-top: 40px;
+				display: block;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">登录</h1>
+		</header>
+		
+		<div class="mui-content">
+	    
+			{% if error %}
+		        <span style="color: red"> 用户名或密码错误 </span>
+		    {% endif %}
+
+			<form class="mui-input-group">
+				{% csrf_token %}
+				<div class="mui-input-row">
+					<label>组织账号</label>
+					<input id='name' type="text" name="name" class="mui-input-clear mui-input" placeholder="请输入账号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" name="password" class="mui-input-password" placeholder="请输入密码">
+				</div>				
+			</form>
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+				<div class="link-area"><a href="{% url 'AdminManage:regis' %}" id='reg'>注册账号</a> <span class="spliter">|</span> <a href="{% url 'AdminManage:password_find' %}" id='forgetPassword'>忘记密码</a>
+				</div>
+			</div>
+		</div>
+		<script src="http://apps.bdimg.com/libs/mui/2.8.0/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+
+			document.getElementById("login").addEventListener("click", function() {
+				mui.ajax("{% url 'AdminManage:login' %}" , {
+					data: {
+						"name": document.getElementById("name").value,
+						"password": document.getElementById("password").value,
+						"csrfmiddlewaretoken": document.getElementsByTagName('input')[0].value
+					},
+					type: "POST",
+					dataType: "text",
+					success: function(data, status) {
+						data = JSON.parse(data);
+						if (data.status==1) {
+							mui.alert("login success")
+							window.localStorage.setItem("image", data.image);
+							window.localStorage.setItem("name", data.name);
+							window.location.href = "{% url 'AdminManage:index' %}";
+						}
+						else if (data.status==0)
+							mui.alert("不存在此用户");
+						else if (data.status==2)
+							mui.alert("密码错误");
+<<<<<<< HEAD
+=======
+						else if (data.status==3)
+							mui.alert("except");
+>>>>>>> 3370ac6aff8a144f24ff63e47d53ab6044855f8b
+						else
+							mui.alert(data);
+					},
+				});
+			});
+		</script>
+	</body>
+</html>

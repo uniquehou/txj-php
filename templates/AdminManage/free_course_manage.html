@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back"></a>
+			<h1 class="mui-title">空课表管理</h1>
+		</header>
+		
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					开启收集
+					<div id="start_collect" class="mui-switch mui-switch-blue {% ifequal free_course_open '1' %} mui-active {% endifequal %}">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="{% url 'AdminManage:free_course_show' %}" class="mui-navigate-right">查看结果</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="{% url 'FreeCourse:index' %}?id={{id}}" class="mui-navigate-right">进入收集页面</a>
+				</li>
+			</ul>
+		</div>
+		<script src="http://apps.bdimg.com/libs/mui/2.8.0/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+
+			mui('.mui-switch')['switch']();
+			document.getElementById("start_collect").addEventListener("toggle", function(event) {
+				var operation;
+				var open;
+				if (event.detail.isActive) {
+					operation = "开启";
+					open = "1";
+				}
+				else {
+					operation = "关闭";
+					open = "0";
+				}
+
+				mui.ajax("{% url 'AdminManage:free_course_manage' %}", {
+					data: {
+						"open": open
+					},
+					type: "GET",
+					dataType: "text",
+					success: function(text) {
+						mui.toast("空课表收集已"+operation);
+					},
+					error: function(data) {
+						mui.toast(operation+"失败，请稍后重试");
+						mui("#start_collect").switch().toggle();
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html> 

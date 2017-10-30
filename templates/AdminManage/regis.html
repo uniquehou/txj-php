@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+{% load static %}
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<style>
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 22%;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 78%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				{% csrf_token %}
+				<div class="mui-input-row">
+					<label>登录名</label>
+					<input id='name' type="text" class="mui-input-clear mui-input" placeholder="登录名" value="">
+				</div>
+				<div class="mui-input-row">
+					<label>组织名称</label>
+					<input id="organic_name" type="text" class="mui-input-clear mui-input" placeholder="组织名称" value="">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='password' type="password" class="mui-input-password" placeholder="请输入密码" value="">
+				</div>
+				<div class="mui-input-row">
+					<label>确认</label>
+					<input id='password_confirm' type="password" class="mui-input-password" placeholder="请确认密码" value="">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='reg' class="mui-btn mui-btn-block mui-btn-primary" onclick="regis()">注册</button>
+			</div>
+		</div>
+		<script src="http://apps.bdimg.com/libs/mui/2.8.0/js/mui.min.js"></script>
+		<script>
+			mui.init();
+			function regis() {
+				name = document.getElementById("name").value;
+				organic_name = document.getElementById("organic_name").value;
+				password = document.getElementById("password").value;
+				password_confirm = document.getElementById("password_confirm").value;
+				if (name == "")
+					mui.alert("请输入登录名");
+				else if (password=="")
+					mui.alert("请设置密码");
+				else if (password_confirm == "")
+					mui.alert("请再次输入密码");
+				else if (password != password_confirm)
+					mui.alert("再次密码输入的不一致，请重新输入");
+				else {
+					mui.ajax("{% url 'AdminManage:regis' %}", {
+						data: {
+							"name": name,
+							"organic_name": organic_name,
+							"password": password,
+							"csrfmiddlewaretoken": document.getElementsByTagName('input')[0].value,
+						},
+						type: "POST",
+						dataType: "text",
+						success: function(data) {
+							mui.alert(data);
+							if (data==1) {
+								mui.alert("注册成功");
+								window.location.href = "{% url 'AdminManage:login' %}";
+							}
+							else
+								mui.alert("服务器繁忙，请稍后重试");
+						},
+						error: function(data) {
+							mui.alert(data);
+						},
+					});
+				}
+			}
+
+		</script>
+	</body>
+
+</html>

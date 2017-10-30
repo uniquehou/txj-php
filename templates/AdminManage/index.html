@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+		<style type="text/css">
+			.information {
+				margin-top: 20px;
+				margin-bottom: 10px;
+			}
+			.information ul {
+				padding: 10px 0;
+			}
+			.function {
+				margin: 10px 0px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function () {
+				if (! window.localStorage.getItem("name")) {
+					window.location.href = "{% url 'AdminManage:login' %}";         // 未登录，返回登录页
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">个人中心</h1>
+		</header>
+		
+		<div class="mui-content">
+			<div class="information"> <ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" id="image" src="">
+						<div class="mui-media-body" id="name"></div>
+					</a>
+				</li>
+			</ul> </div>
+		
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="{% url 'AdminManage:info_manage' %}" class="mui-navigate-right">资料设置</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="{% url 'AdminManage:password_modify' %}" class="mui-navigate-right">密码修改</a>
+				</li>
+			</ul>
+			
+			<div class="function">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="free_course_manage.html" class="mui-navigate-right">空课表</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a href="#" id="toastBtn">签到</a>
+					</li>	
+				</ul>
+			</div>
+
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="exit()">退出登录</a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="{% static 'js/mui.min.js' %}"></script>
+		<!-- <script src="http://apps.bdimg.com/libs/mui/2.8.0/js/mui.min.js"></script> -->
+		<script type="text/javascript">
+			mui.init()
+			document.getElementById("toastBtn").addEventListener('tap', function() {
+				mui.toast('正在开发，敬请期待 (^_^)');
+			});
+
+			document.getElementById("name").innerHTML = window.localStorage.getItem("name");
+			document.getElementById("image").src = window.localStorage.getItem("image");
+				
+			function exit() {
+				// 服务器注销
+				mui.ajax("{% url 'AdminManage:exit' %}", {
+					success: function(data) {
+						// 本地注销
+						window.localStorage.removeItem("image");
+						window.localStorage.removeItem("name");
+						window.location.href = "{% url 'AdminManage:login' %}";
+					}
+				});				
+			}
+		</script>
+	</body>
+ 
+</html>

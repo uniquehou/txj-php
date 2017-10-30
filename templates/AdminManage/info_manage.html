@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+{% load static %}
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="{% static 'css/mui.min.css' %}" rel="stylesheet" />
+	</head>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.getElementById('organic_name').value = window.localStorage.getItem("name");
+			document.getElementById('image').src = window.localStorage.getItem("image");
+		}
+
+		function modify() {
+			var organic_name = document.getElementById("organic_name").value;
+			if (organic_name) {
+				url = "{% url 'AdminManage:info_manage' %}";
+				mui.ajax(url, {
+					data: {
+						"organic_name": organic_name,
+						"csrfmiddlewaretoken": document.getElementsByTagName('input')[0].value
+					},
+					type: "POST",
+					dataType: "text",
+					success: function(data) {
+						if (data == "1") {
+							window.localStorage.setItem("name", organic_name);
+							document.getElementById('organic_name').value = window.localStorage.getItem("name");
+							mui.alert("修改成功");
+						}
+						else
+							mui.alert("服务器繁忙，请稍后重试");
+					},
+				});
+			}
+		}
+	</script>
+	<style type="text/css">
+		form {
+			margin-top: 20px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back"></a>
+			<h1 class="mui-title">资料设置</h1>
+		</header>
+		
+		<div class="mui-content">			
+			<form class="mui-input-group">
+				{% csrf_token %}
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<img class="mui-media-object mui-pull-right" id="image" src="">
+						<p class="mui-title">头像</p>
+					</li> 
+				</ul>
+				<div class="mui-input-row">
+					<label>组织名称</label>
+					<input type="text" id="organic_name" name="organic_name" class="mui-input-clear" placeholder="组织名称" value="" />
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary" onclick="modify()">修改</button>
+			</div>
+		</div>
+		<script src="http://apps.bdimg.com/libs/mui/2.8.0/js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			document.getElementById("image").src = window.localStorage.getItem("image");
+		</script>
+	</body>
+
+</html>

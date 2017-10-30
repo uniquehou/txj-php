@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>空课表</title>
+    <link href="{% static 'css/mui.min.css' %}" rel="stylesheet"/>
+    <script>
+        window.onload = function () {
+            data = '{{ data | safe}}';
+            course = JSON.parse(data);
+            document.getElementById("course_1").innerText = course.course_1.trim();
+            document.getElementById("course_6").innerText = course.course_6.trim();
+            document.getElementById("course_11").innerText = course.course_11.trim();
+            document.getElementById("course_16").innerText = course.course_16.trim();
+            document.getElementById("course_21").innerText = course.course_21.trim();
+            document.getElementById("course_26").innerText = course.course_26.trim();
+            document.getElementById("course_31").innerText = course.course_31.trim();
+            document.getElementById("course_2").innerText = course.course_2.trim();
+            document.getElementById("course_7").innerText = course.course_7.trim();
+            document.getElementById("course_12").innerText = course.course_12.trim();
+            document.getElementById("course_17").innerText = course.course_17.trim();
+            document.getElementById("course_22").innerText = course.course_22.trim();
+            document.getElementById("course_27").innerText = course.course_27.trim();
+            document.getElementById("course_32").innerText = course.course_32.trim();
+            document.getElementById("course_3").innerText = course.course_3.trim();
+            document.getElementById("course_8").innerText = course.course_8.trim();
+            document.getElementById("course_13").innerText = course.course_13.trim();
+            document.getElementById("course_18").innerText = course.course_18.trim();
+            document.getElementById("course_23").innerText = course.course_23.trim();
+            document.getElementById("course_28").innerText = course.course_28.trim();
+            document.getElementById("course_33").innerText = course.course_33.trim();
+            document.getElementById("course_4").innerText = course.course_4.trim();
+            document.getElementById("course_9").innerText = course.course_9.trim();
+            document.getElementById("course_14").innerText = course.course_14.trim();
+            document.getElementById("course_19").innerText = course.course_19.trim();
+            document.getElementById("course_24").innerText = course.course_24.trim();
+            document.getElementById("course_29").innerText = course.course_29.trim();
+            document.getElementById("course_34").innerText = course.course_34.trim();
+            document.getElementById("course_5").innerText = course.course_5.trim();
+            document.getElementById("course_10").innerText = course.course_10.trim();
+            document.getElementById("course_15").innerText = course.course_15.trim();
+            document.getElementById("course_20").innerText = course.course_20.trim();
+            document.getElementById("course_25").innerText = course.course_25.trim();
+            document.getElementById("course_30").innerText = course.course_30.trim();
+            document.getElementById("course_35").innerText = course.course_35.trim();
+        }
+    	function show_all(elem) {
+    		var text;
+    		if (elem.value=="")
+    			text = "不巧，都有课 -_-||";
+    		else
+    			text = elem.value.replace(" ", "\n");
+    		mui.alert(text, "空课情况");
+    	}
+    </script>
+	<style>
+		.mui-content {
+			margin-top: 20px;
+		}
+		table {
+			margin-top: 20px;
+    		font-family: "楷体";
+    		margin-right: 10px;
+    	}
+    	td {
+    		/*border: #000 solid 2px;*/
+    		padding: 2px;
+    	}
+    	td textarea {
+    		width: 100%;
+    		height: 80px;
+    		font-size: 10px;
+    		resize: none;
+    		padding: 2px;
+    		margin-bottom: 0px;
+    	}
+    	td div {
+    		width: 100%;
+    	}
+    	.download {
+    		font-family: "楷体";
+    		font-size: 20px;
+    	}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-back"></a>
+		<h1 class="mui-title">空课表</h1>
+	</header>
+	
+	<div class="mui-content">
+    <table>
+	        <thead class="week">
+	            <th></th>
+	            <th>周一</th>
+	            <th>周二</th>
+	            <th>周三</th>
+	            <th>周四</th>
+	            <th>周五</th>
+	            <th>周六</th>
+	            <th>周日</th>
+	        </thead>
+	
+	        <tr>
+	            <th>1 &nbsp; 2</th>
+	            <td><textarea id="course_1" name='course_1' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_6" name='course_6' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_11" name='course_11' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_16" name='course_16' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_21" name='course_21' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_26" name='course_26' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_31" name='course_31' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	        </tr>
+	        <tr>
+	        	<th>3 &nbsp; 4</th>
+	            <td><textarea id="course_2" name='course_2' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_7" name='course_7' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_12" name='course_12' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_17" name='course_17' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_22" name='course_22' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_27" name='course_27' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_32" name='course_32' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	        </tr>
+	
+	        <tr>
+	            <th>5 &nbsp; 6</th>
+	            <td><textarea id="course_3" name='course_3' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_8" name='course_8' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_13" name='course_13' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_18" name='course_18' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_23" name='course_23' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_28" name='course_28' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_33" name='course_33' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	        </tr>
+	        <tr>
+	        	<th>7 &nbsp; 8</th>
+	            <td><textarea id="course_4" name='course_4' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_9" name='course_9' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_14" name='course_14' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_19" name='course_19' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_24" name='course_24' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_29" name='course_29' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_34" name='course_34' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	        </tr>
+	
+	        <tr>
+	            <th>晚</th>
+	            <td><textarea id="course_5" name='course_5' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_10" name='course_10' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_15" name='course_15' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_20" name='course_20' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_25" name='course_25' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_30" name='course_30' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	            <td><textarea id="course_35" name='course_35' onclick="show_all(this)" readonly="readonly"></textarea></td>
+	        </tr>
+	    </table>
+	    
+    <div class="mui-content-padded">
+	    <center><a class="mui-btn mui-btn-blue download" href="{% url "AdminManage:download" %}">下载EXCEL文件 <span class="mui-icon mui-icon-download"></span></a></center>
+    </div>
+	    
+	</div>
+	
+	<script type="text/javascript" src="{% static 'js/mui.min.js' %}" ></script>
+	<script type="text/javascript">
+		mui.init();
+	</script>
+</body>
+</html>
